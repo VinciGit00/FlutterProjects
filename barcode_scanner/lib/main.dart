@@ -18,9 +18,10 @@ class QrCode extends StatefulWidget {
 class _QrCodeState extends State<QrCode> {
   String _data = "";
 
- _scan() async {
-   await FlutterBarcodeScanner.scanBarcode("#000000", "Cancel", true, ScanMode.BARCODE).then((value) => setState(() => _data=value));
-   
+  _scan() async {
+    await FlutterBarcodeScanner.scanBarcode(
+            "#000000", "Cancel", true, ScanMode.BARCODE)
+        .then((value) => setState(() => _data = value));
   }
 
   @override
@@ -29,8 +30,7 @@ class _QrCodeState extends State<QrCode> {
       body: Column(
         children: [
           ElevatedButton(
-              child: const Text("Scan Barcode"),
-              onPressed: ()  =>  _scan()),
+              child: const Text("Scan Barcode"), onPressed: () => _scan()),
           Text(_data),
         ],
       ),
