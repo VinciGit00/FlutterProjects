@@ -54,6 +54,7 @@ void main(List<String> args) {
 ```
 
 The result is the following:
+<br />
 <img width="258" alt="Schermata_2022-06-09_alle_19 10 16" src="https://user-images.githubusercontent.com/88108002/172911183-6e5f14aa-e54c-49fe-b17b-eb1d712b944e.png">
 
 
