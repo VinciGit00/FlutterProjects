@@ -53,6 +53,6 @@ void main(List<String> args) {
 }
 ```
 
-The result is the following:
+The result is the following:<img width="258" alt="Schermata_2022-06-09_alle_19 10 16" src="https://user-images.githubusercontent.com/88108002/172911183-6e5f14aa-e54c-49fe-b17b-eb1d712b944e.png">
 
-![Schermata 2022-06-09 alle 19.10.16.png](Testing%2072756b227a2a420da4501ad063f22623/Schermata_2022-06-09_alle_19.10.16.png)
+
