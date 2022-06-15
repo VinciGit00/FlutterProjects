@@ -1,3 +1,4 @@
+import 'package:alin_gram/Pages/Custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -25,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: const WebView(
           javascriptMode: JavascriptMode.unrestricted,
           initialUrl: 'https://www.picuki.com/profile/alinianitchii',
-        ));
+        ),
+        drawer: CustomDrawer());
   }
 }
