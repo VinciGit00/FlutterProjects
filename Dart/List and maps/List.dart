@@ -37,4 +37,7 @@ void main(List<String> args) {
   //Creating element in list with a for loop
   List names5 = ["Marco", "Franco", for (int i = 1; i < 6; i++) "Claudia $i"];
   print(names5);
+
+  //Ad an element to a list
+  names.add("New element");
 }

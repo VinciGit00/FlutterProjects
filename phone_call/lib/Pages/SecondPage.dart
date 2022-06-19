@@ -11,46 +11,77 @@ class secondPage extends StatefulWidget {
   State<secondPage> createState() => _secondPageState();
 }
 
-void calLoop(String number) {
+Future<void> calLoop(String number) async {
   int time = 40;
 
-  sleep(const Duration(seconds: 10));
   while (true) {
-    FlutterPhoneDirectCaller.callNumber(number);
-    sleep(Duration(seconds: time));
+    await FlutterPhoneDirectCaller.callNumber(number);
+    //sleep(Duration(seconds: time));
 
-    if (time > 20) time -= 5;
+    //if (time > 20) time -= 5;
   }
 }
 
 class _secondPageState extends State<secondPage> {
   void initState() {
-    calLoop(widget.numero.number.toString());
+    //calLoop(widget.numero.number.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Text(
-                "I'm making the phone call",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      body: FutureBuilder(
+        // future: Future.delayed(const Duration(seconds: 2)),
+        future: calLoop(widget.numero.number),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            //calLoop(widget.numero.number.toString());
+            return Center(
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "I'm making the phone call",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "Calling ${widget.numero.number.toString()} ",
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  )
+                ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                "Calling ${widget.numero.number.toString()} ",
-                style: const TextStyle(fontSize: 20),
+            );
+          } else {
+            return Center(
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "I'm making the phone call",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "Calling ${widget.numero.number.toString()} ",
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
+            );
+          }
+        },
       ),
     );
   }
