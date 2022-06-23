@@ -8,7 +8,7 @@ void main(List<String> args) {
   };
 
   //Method 2
-  Map<String, dynamic> mappa = {
+  Map<String, dynamic> map = {
     'Username': 'Peter',
     'Password': 'peter123',
     'role': 'admin',
@@ -16,27 +16,27 @@ void main(List<String> args) {
   };
 
   print(user);
-  print(mappa);
+  print(map);
 
   //Get a single value of the  map
-  var variabile = mappa["Username"];
+  var variabile = map["Username"];
 
   print("Variabile estratta: " + variabile);
 
   //Change the value of an element
-  mappa["Username"] = "Nuovo Username";
-  mappa["role"] = "Nuovo ruolo";
-  variabile = mappa["Username"];
+  map["Username"] = "Nuovo Username";
+  map["role"] = "Nuovo ruolo";
+  variabile = map["Username"];
 
   print("Variabile estratta: " + variabile);
 
   //Casting an element to string
-  var variabile2 = mappa["Username"] as String;
+  var variabile2 = map["Username"] as String;
   //Now it's possibile to ha have the length
   print(variabile2.length);
 
   try {
-    var variabile3 = mappa["iPAddress"] as String;
+    var variabile3 = map["iPAddress"] as String;
     //Accessing values that do not exist
     print(variabile3);
   } catch (e) {
