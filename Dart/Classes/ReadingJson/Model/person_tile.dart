@@ -1,7 +1,7 @@
 class Person {
-  late String name;
-  late String surname;
-  late String birthday;
+  String name;
+  String surname;
+  String birthday;
 
   Person(this.name, this.surname, this.birthday);
 

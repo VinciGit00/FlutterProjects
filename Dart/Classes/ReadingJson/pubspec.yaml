@@ -1,0 +1,9 @@
+name: DartTesting
+
+dev_dependencies:
+
+environment:
+  sdk: ">=2.10.0 <3.0.0"
+
+assets:
+  - assets/people.json
