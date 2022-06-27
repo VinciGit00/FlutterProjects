@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_post/object/getResponse.dart';
 
 class ResultPage extends StatefulWidget {
-  Future<String> result;
-  ResultPage({Key? key, required this.result}) : super(key: key);
+  String statusCode;
+  String bodyCode;
+
+  ResultPage({Key? key, required this.statusCode, required this.bodyCode})
+      : super(key: key);
 
   @override
   State<ResultPage> createState() => _ResultPageState();

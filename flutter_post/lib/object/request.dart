@@ -1,10 +1,38 @@
 class RequestToSend {
-  String operation;
-  String params;
-  String authorization;
-  String header;
-  String body;
+  late String link;
+  late String operation;
+  late String headerName;
+  late String header;
+  late String body;
 
   RequestToSend(
-      this.operation, this.params, this.authorization, this.header, this.body);
+      this.link, this.operation, this.headerName, this.header, this.body);
+
+  RequestToSend.secondConstructor() {
+    this.link = "";
+    this.operation = "";
+    this.headerName = "";
+    this.header = "";
+    this.body = "";
+  }
+
+  void addLink(String link) {
+    this.link = link;
+  }
+
+  void addOperation(String operation) {
+    this.operation = operation;
+  }
+
+  void addHeaderName(String headerName) {
+    this.headerName = headerName;
+  }
+
+  void addHeader(String header) {
+    this.header = header;
+  }
+
+  void addbody(String body) {
+    this.body = body;
+  }
 }

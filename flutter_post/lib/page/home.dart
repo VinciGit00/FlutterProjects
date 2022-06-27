@@ -4,10 +4,12 @@ import 'package:flutter_post/object/request.dart';
 import 'result.dart';
 import 'HalfPages/Url.dart';
 import 'HalfPages/Header.dart';
-import 'HalfPages/Params.dart';
-import 'HalfPages/Authorization.dart';
 import 'HalfPages/Body.dart';
 import 'HalfPages/Operation.dart';
+import 'package:flutter_post/object/getResponse.dart';
+import 'package:flutter_post/object/PostResponse.dart';
+import 'package:flutter_post/project providers/data_provider.dart';
+import 'package:provider/provider.dart';
 
 class Homepage extends StatefulWidget {
   String title;
@@ -25,7 +27,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 6,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
@@ -34,25 +36,36 @@ class _HomepageState extends State<Homepage> {
                 icon: const Icon(Icons.send),
                 color: Colors.white,
                 onPressed: () {
-                  RequestToSend requestToSend =
-                      RequestToSend("", "", "", "", "");
-                  Future<String> result;
+                  RequestToSend requestToSend = RequestToSend(
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                  );
+
+                  //Va bene così?
+                  Provider.of<dataProvider>(context, listen: false).addLink("");
                   switch (operation) {
                     case "GET":
-                      result = getData(requestToSend);
+                      Future<GetResponse> result = getData(requestToSend);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ResultPage(result: result),
+                          builder: (context) => ResultPage(
+                              statusCode: result.statuscode,
+                              bodyCode: result.body),
                         ),
                       );
                       break;
                     case "POST":
-                      result = postData(requestToSend);
+                      Future<PostResponse> result = postData(requestToSend);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ResultPage(result: result),
+                          builder: (context) => ResultPage(
+                              statusCode: result.statuscode,
+                              bodyCode: result.body),
                         ),
                       );
                       break;
@@ -65,9 +78,6 @@ class _HomepageState extends State<Homepage> {
                 const Tab(icon: const Icon(Icons.home)),
                 const Tab(icon: const Icon(Icons.directions_transit)),
                 const Tab(icon: const Icon(Icons.directions_bike)),
-                const Tab(icon: const Icon(Icons.home)),
-                const Tab(icon: const Icon(Icons.directions_transit)),
-                const Tab(icon: const Icon(Icons.directions_bike)),
               ],
             ),
           ),
@@ -75,10 +85,7 @@ class _HomepageState extends State<Homepage> {
             children: [
               URL(),
               Header(),
-              Params(),
-              Operation(),
               Body(),
-              Authorization(),
             ],
           ),
         ),
