@@ -1,6 +1,6 @@
-class PostResponse {
+class PostResp {
   late String statuscode;
   late String body;
 
-  PostResponse(this.statuscode, this.body);
+  PostResp(this.statuscode, this.body);
 }

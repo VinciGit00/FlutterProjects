@@ -1,9 +1,9 @@
 import 'package:http/http.dart';
 import 'package:flutter_post/object/request.dart';
 import 'package:flutter_post/object/getResponse.dart';
-import 'package:flutter_post/object/postResponse.dart';
-
 import 'package:http/http.dart' as http;
+
+import '../object/PostResponse.dart';
 //Logic of the app
 
 /// Functions
@@ -19,7 +19,7 @@ Future<GetResponse> getData(RequestToSend R) async {
   return GetResponse(response.statusCode.toString(), response.body);
 }
 
-Future<PostResponse> postData(RequestToSend R) async {
+Future<PostResp> postData(RequestToSend R) async {
   var response = await http.post(
       Uri.parse(
         R.link,
@@ -28,5 +28,5 @@ Future<PostResponse> postData(RequestToSend R) async {
       body: R.body);
   if (response.statusCode == 200) {
   } else {}
-  return PostResponse(response.statusCode.toString(), response.body);
+  return PostResp(response.statusCode.toString(), response.body);
 }
