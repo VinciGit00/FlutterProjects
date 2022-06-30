@@ -3,7 +3,12 @@ import 'package:flutter_post/object/request.dart';
 
 //This is the provider for the data
 class dataProvider with ChangeNotifier {
-  RequestToSend r = RequestToSend.secondConstructor();
+  late RequestToSend r;
+
+  //Methods
+  void createObject(RequestToSend request) {
+    r = request;
+  }
 
   void addLink(String link) {
     r.addLink(link);

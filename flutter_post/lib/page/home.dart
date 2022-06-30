@@ -6,7 +6,6 @@ import 'result.dart';
 import 'HalfPages/Url.dart';
 import 'HalfPages/Header.dart';
 import 'HalfPages/Body.dart';
-import 'HalfPages/Operation.dart';
 import 'package:flutter_post/object/getResponse.dart';
 import 'package:flutter_post/project providers/data_provider.dart';
 import 'package:provider/provider.dart';
@@ -20,12 +19,16 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  //Boolean for charging the operation
+  bool _isLoading = false;
+
   //texteditingController for textfield
   String operation = "GET";
+
   TextEditingController _urlController = TextEditingController();
+  TextEditingController _KeyController = TextEditingController();
   TextEditingController _headerController = TextEditingController();
   TextEditingController _bodyController = TextEditingController();
-  TextEditingController _KeyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,47 +39,68 @@ class _HomepageState extends State<Homepage> {
           appBar: AppBar(
             title: Text(widget.title),
             actions: [
-              IconButton(
-                icon: const Icon(Icons.send),
-                color: Colors.white,
-                onPressed: () async {
-                  RequestToSend requestToSend = RequestToSend(
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                  );
+              _isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.red,
+                      ),
+                    )
+                  : IconButton(
+                      icon: const Icon(Icons.send),
+                      color: Colors.white,
+                      onPressed: () async {
+                        if (_urlController.text != "") {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          RequestToSend requestToSend = RequestToSend(
+                            _urlController.text,
+                            operation,
+                            _KeyController.text,
+                            _headerController.text,
+                            _bodyController.text,
+                          );
 
-                  //Va bene così?
-                  Provider.of<dataProvider>(context, listen: false).addLink("");
-                  switch (operation) {
-                    case "GET":
-                      //You should use the keyword await
-                      GetResponse result = await getData(requestToSend);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ResultPage(
-                              statusCode: result.statuscode,
-                              bodyCode: result.body),
-                        ),
-                      );
-                      break;
-                    case "POST":
-                      PostResp result = await postData(requestToSend);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ResultPage(
-                              statusCode: result.statuscode,
-                              bodyCode: result.body),
-                        ),
-                      );
-                      break;
-                  }
-                },
-              ),
+                          Provider.of<dataProvider>(context, listen: false)
+                              .createObject(requestToSend);
+                          switch (operation) {
+                            case "GET":
+                              //You should use the keyword await
+                              GetResponse result =
+                                  await getData(dataProvider().r);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ResultPage(
+                                      statusCode: result.statuscode,
+                                      bodyCode: result.body),
+                                ),
+                              );
+                              _isLoading = false;
+                              break;
+                            case "POST":
+                              PostResp result = await postData(requestToSend);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ResultPage(
+                                      statusCode: result.statuscode,
+                                      bodyCode: result.body),
+                                ),
+                              );
+                              _isLoading = false;
+                              break;
+                          }
+                        } else {
+                          const snackBar = SnackBar(
+                            content: Text(
+                                'Devi inserire i dati prima di fare una POST!'),
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      },
+                    ),
             ],
             bottom: TabBar(
               tabs: [
@@ -90,6 +114,7 @@ class _HomepageState extends State<Homepage> {
             children: [
               URL(
                 urlController: _urlController,
+                operation: operation,
               ),
               Header(
                 KeyController: _KeyController,
