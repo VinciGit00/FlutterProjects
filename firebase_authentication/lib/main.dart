@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Logic/firebase_options.dart';
-import 'Pages/Authentication.dart';
 import 'Pages/Authgate.dart';
 
 Future<void> main() async {
